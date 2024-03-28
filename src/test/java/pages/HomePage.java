@@ -16,9 +16,13 @@ public class HomePage extends BrowserDriver {
         super(driver);
     }
 
-    public WebElement getLogo() {
+    public static WebElement getLoginBtn() {
         waitForElementToBePresent(loginBtn);
         return getElement(loginBtn);
+    }
+
+    public static void login(){
+        getLoginBtn().click();
     }
 
 
