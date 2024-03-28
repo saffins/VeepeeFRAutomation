@@ -3,13 +3,11 @@
  */
 package com.ecommerce.WebApp.Pages;
 
-import org.apache.log4j.Logger;
+import com.ecommerce.WebApp.Base.BasePage;
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-
-import com.ecommerce.WebApp.Base.BasePage;
 
 
 
@@ -22,7 +20,6 @@ import com.ecommerce.WebApp.Base.BasePage;
  *
  */
 public class HomePage extends BasePage {
-	public Logger logger=Logger.getLogger( BasePage.class.getName());
 
 	private By logo=By.cssSelector("img[class='TRRBg _R']");
 			
@@ -32,7 +29,7 @@ public class HomePage extends BasePage {
 
 	private By myAccLink = By.xpath("(//div[@class='info']//*[contains(text(),'My account')])[2]");
 
-	private By logoutBtn = By.xpath("(//div[@class='info']//*[contains(text(),'Logout')])");
+	private By logoutBtn = By.xpath("//*[text()='Déconnexion']");
 
 	private By registerBtn = By.xpath("//a[contains(text(),'Register')]");
 
@@ -42,6 +39,13 @@ public class HomePage extends BasePage {
 
 	private By searchedItemHyperlink = By.xpath("//*[@data-view_id='grid']//*[@alt='HTC Touch HD']");
 
+	private By loginBtn = By.xpath("//*[@data-testid='login-button']");
+
+	private By loginScreenPopup = By.xpath("//*[text()='Connexion / Inscription']");
+
+	private By menuBtn = By.id("menuBtn");
+	private By acceptCookies = By.xpath("//button[contains(text(),'Autoriser tous les cookies')]");
+
 	public HomePage(WebDriver driver) {
 		super(driver);
 	}
@@ -50,12 +54,30 @@ public class HomePage extends BasePage {
 	 * these are the getters of WebElements these methods wait for perticular webelement to be get displayed and return that webElement to the caller
 	 * @return WebElement
 	 */
+	public void acceptCookies(){
+		waitForElementToBeClickable(acceptCookies);
+		getElement(acceptCookies).click();
+	}
+	public void logout(){
+		waitForElementToBeClickable(menuBtn);
+		hoverOnElement(menuBtn);
+		waitForElementToBeClickable(logoutBtn);
+		getElement(logoutBtn).click();
+	}
+
+	public void login(){
+		waitForElementToBeClickable(loginBtn);
+		getElement(loginBtn).click();
+		waitForElementToBeClickable(loginScreenPopup);
+		Assert.assertTrue(getElement(loginScreenPopup).isDisplayed());
+	}
 	public void searchProduct(String productName){
 		waitForElementToBeClickable(searchProductInput);
 		getElement(searchProductInput).sendKeys(productName);
 		getElement(searchBtn).click();
-		logger.info("searched the product "+ productName);
-	}
+ 	}
+
+
 
 	public void clickSearchedProduct(){
 		waitForElementToBeClickable(searchedItemHyperlink);
@@ -110,23 +132,8 @@ public class HomePage extends BasePage {
 	 * which opens the iframe 
 	 * @return SignIn Page object
 	 */
-	public SignInPage clickOnSignIn()
-	{
-		getSignInLink().click();
-		driver.switchTo().frame(getSignInFrame());
-		return new SignInPage(driver);
-	}
 
-	public MyAccountLogin clickMyAcc(){
-		getMyAccLink().click();
 
-		return new MyAccountLogin(driver);
-	}
-
-	public void logout(){
-		hoverOnElement(myAccLink);
-		getElement(logoutBtn).click();
-	}
 
 	public void registerUser(){
 		getRegisterButton().click();;

@@ -8,7 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="CucumberOnEcommerce" />
-        <module name="VeepeeFRAutomation" />
+        <module name="CucumberVeepeeFR" />
       </profile>
     </annotationProcessing>
   </component>

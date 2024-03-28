@@ -3,15 +3,13 @@
  */
 package com.ecommerce.WebApp.StepDefinationFiles;
 
-import org.apache.log4j.Logger;
-import org.junit.Assert;
-
-
 import com.ecommerce.WebApp.Factory.WebDriverFactory;
 import com.ecommerce.WebApp.Pages.HomePage;
-
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
+
+import java.util.logging.Logger;
 
 /**
 
@@ -23,9 +21,19 @@ public class HomePageStepDefination {
 	
 	@When("User is on the Home Page")
 	public void user_is_on_the_home_page() {
-	  System.out.println("User is on home pagge");
+	  System.out.println("User is on Veepee FR");
+	  objHomePage.acceptCookies();
 	}
 
+	@Then("user logs out of the application")
+	public void logout(){
+		objHomePage.logout();
+	}
+
+	@When("User clicks on login button")
+	public void loginClick(){
+		objHomePage.login();
+	}
 	@Then("He gets The Home Page Title as {string}")
 	public void he_gets_the_home_page_title_as(String pageTitle) {
 	  String actualTitle=objHomePage.getPageTitle();

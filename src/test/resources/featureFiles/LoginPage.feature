@@ -1,31 +1,22 @@
-Feature: Login page testing
+Feature: Veepee FR Login page testing
 
   Background:
     When User is on the Home Page
 
 
-#  Scenario: To verify that user can login with valid credentials
-#
-#
-#    When User clicked on Continue with email
-#    And enter email and password as
-#      | saifsh12786@gmail.com | saffin123 |
-#    And clicked on login button
-#    Then User gets signed in to application using valid credentials and your's home page gets displayed with Page Title as "Tripadvisor: Over a billion reviews & contributions for Hotels, Attractions, Restaurants, and more"
-
-  @FunctionalTest
-  Scenario: To verify that user can login with valid credentials
+  @FunctionalTesta
+  Scenario: To verify that user can login with valid credentials and logout
 
 
-    When clicked on my account link
-    And I login with credentials , username "saifsh12786@gmail.com" and password "saffin123" expecting message "Edit your account information"
+    When User clicks on login button
+    And User pass login credentials username as "saifsh12786@gmail.com" and password as "SAffin@123." for "valid" login
     Then user logs out of the application
 
-  @FunctionalTest
+  @FunctionalTesta
   Scenario Outline: To verify that user cannot login with Invalid credentials
 
-    When clicked on my account link
-    And I login with credentials , username "<EmailId>" and password "<password>" expecting message "Warning: No match for E-Mail Address and/or Password."
+    When User clicks on login button
+    And User pass login credentials username as "<EmailId>" and password as "<password>" for "invalidlogin" login
 
     Examples:
       | EmailId                     | password |
@@ -37,11 +28,11 @@ Feature: Login page testing
   @FunctionalTest
   Scenario: To verify that user can not login with Blank Email address
 
-    When clicked on my account link
-    And I login with credentials , username "" and password "saffin123" expecting message "Warning: No match for E-Mail Address and/or Password."
+    When User clicks on login button
+    And User pass login credentials username as "" and password as "SAffin@123." for "invalidlogin" login
 
   @FunctionalTest
   Scenario: To verify that user can not login with Blank Password
 
-    When clicked on my account link
-    And I login with credentials , username "saifsh12786@gmail.com" and password "" expecting message "Warning: No match for E-Mail Address and/or Password."
+    When User clicks on login button
+    And User pass login credentials username as "saifsh12786@gmail.com" and password as "" for "invalidlogin" login
